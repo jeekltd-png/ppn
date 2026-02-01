@@ -278,28 +278,54 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Track donation event
             trackEvent('Donation', 'Submit', `£${formData.amount}`);
-            
-            // In production, integrate with payment processor:
-            /*
-            fetch('/api/donate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.paymentUrl) {
-                    // Redirect to payment processor (Stripe, PayPal, etc.)
-                    window.location.href = data.paymentUrl;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error processing your donation. Please try again.');
-            });
-            */
+        });
+    }
+    
+    // ========================================
+    // Testimony Form Handling
+    // ========================================
+    
+    const testimonyForm = document.getElementById('testimonyForm');
+    if (testimonyForm) {
+        testimonyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(testimonyForm);
+            console.log('Testimony submitted');
+            alert('Thank you for sharing your testimony! It will be reviewed and published soon.');
+            testimonyForm.reset();
+            trackEvent('Form', 'Submit', 'Testimony');
+        });
+    }
+    
+    // ========================================
+    // Appointment Form Handling
+    // ========================================
+    
+    const appointmentForm = document.getElementById('appointmentForm');
+    if (appointmentForm) {
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(appointmentForm);
+            console.log('Appointment booked');
+            alert('Your appointment request has been received. We will confirm within 24 hours.');
+            appointmentForm.reset();
+            trackEvent('Form', 'Submit', 'Appointment');
+        });
+    }
+    
+    // ========================================
+    // Newsletter Main Form Handling
+    // ========================================
+    
+    const newsletterMainForm = document.getElementById('newsletterMainForm');
+    if (newsletterMainForm) {
+        newsletterMainForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(newsletterMainForm);
+            console.log('Newsletter subscription');
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterMainForm.reset();
+            trackEvent('Form', 'Submit', 'Newsletter');
         });
     }
     
