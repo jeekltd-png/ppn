@@ -16,6 +16,7 @@
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="nav-brand">
+                <img src="assets/images/logo.svg" alt="Prayer Power Network Logo" class="logo" id="logo">
                 <h2>Prayer Power Network</h2>
             </div>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -29,6 +30,7 @@
                 <li><a href="#prayer-resources" class="nav-link">Prayer Resources</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#donate" class="btn btn-donate-nav">Give Now</a></li>
             </ul>
         </div>
     </nav>
@@ -42,6 +44,7 @@
             <div class="hero-buttons animate-fade-in-delay-2">
                 <a href="#contact" class="btn btn-primary">Join Us</a>
                 <a href="#about" class="btn btn-secondary">Learn More</a>
+                <a href="#donate" class="btn btn-donate">Give Now</a>
             </div>
         </div>
     </section>
@@ -203,6 +206,62 @@
                 <p>Become part of a vibrant community experiencing supernatural intervention through prayer. Connect with fellow believers, grow in faith, and witness miracles.</p>
                 <p><strong>Monthly Theme:</strong> September - Remember God's Faithfulness</p>
                 <a href="#contact" class="btn btn-primary btn-large">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Section -->
+    <section class="donation-section" id="donate">
+        <div class="container">
+            <div class="donation-content">
+                <div class="donation-text">
+                    <h2 class="section-title">Give Now</h2>
+                    <p class="section-subtitle">Support Our Ministry and Transform Lives Through Prayer</p>
+                    <p>Your generous donation helps us reach more people with the power of prayer, organize impactful events, and provide resources for spiritual growth. Every contribution makes a difference in someone's journey to destiny fulfillment.</p>
+                    <div class="donation-impact">
+                        <h3>Your Impact:</h3>
+                        <ul>
+                            <li>🙏 Support monthly intercessory prayer sessions</li>
+                            <li>📚 Provide prayer resources and materials</li>
+                            <li>🎓 Fund leadership training and retreats</li>
+                            <li>🌍 Expand our reach to new communities</li>
+                            <li>💡 Develop online prayer platforms</li>
+                        </ul>
+                    </div>
+                    <p class="charity-reminder"><strong>Registered Charity No. 1192591</strong> - Your donations are tax-deductible</p>
+                </div>
+                <div class="donation-card">
+                    <h3>Make a Donation</h3>
+                    <div class="donation-amounts">
+                        <button class="amount-btn" data-amount="10">£10</button>
+                        <button class="amount-btn" data-amount="25">£25</button>
+                        <button class="amount-btn" data-amount="50">£50</button>
+                        <button class="amount-btn" data-amount="100">£100</button>
+                        <button class="amount-btn active" data-amount="custom">Custom</button>
+                    </div>
+                    <form class="donation-form" id="donationForm">
+                        <div class="form-group">
+                            <label for="donation-amount">Amount (£) *</label>
+                            <input type="number" id="donation-amount" name="amount" min="1" placeholder="Enter amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-name">Full Name *</label>
+                            <input type="text" id="donor-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donor-email">Email Address *</label>
+                            <input type="email" id="donor-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="gift-aid" id="gift-aid">
+                                I am a UK taxpayer and would like to Gift Aid my donation
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-large">Donate Securely</button>
+                    </form>
+                    <p class="donation-note">Note: This is a demo form. In production, integrate with payment processor like Stripe, PayPal, or Give.org</p>
+                </div>
             </div>
         </div>
     </section>

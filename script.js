@@ -196,6 +196,100 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ========================================
+    // Donation Form Handling
+    // ========================================
+    
+    const donationForm = document.getElementById('donationForm');
+    const amountButtons = document.querySelectorAll('.amount-btn');
+    const donationAmountInput = document.getElementById('donation-amount');
+    
+    // Handle amount button clicks
+    amountButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active class from all buttons
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Set amount or clear for custom
+            const amount = this.dataset.amount;
+            if (amount !== 'custom') {
+                donationAmountInput.value = amount;
+            } else {
+                donationAmountInput.value = '';
+                donationAmountInput.focus();
+            }
+        });
+    });
+    
+    // Handle donation form submission
+    if (donationForm) {
+        donationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                amount: document.getElementById('donation-amount').value,
+                name: document.getElementById('donor-name').value,
+                email: document.getElementById('donor-email').value,
+                giftAid: document.getElementById('gift-aid').checked
+            };
+            
+            // Validate amount
+            if (!formData.amount || formData.amount < 1) {
+                alert('Please enter a valid donation amount.');
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate donation processing
+            console.log('Donation submitted:', formData);
+            
+            // Show success message
+            alert(`Thank you ${formData.name} for your generous donation of £${formData.amount}! You will receive a confirmation email shortly.`);
+            
+            // Reset form
+            donationForm.reset();
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            amountButtons[4].classList.add('active'); // Set custom as active
+            
+            // Track donation event
+            trackEvent('Donation', 'Submit', `£${formData.amount}`);
+            
+            // In production, integrate with payment processor:
+            /*
+            fetch('/api/donate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.paymentUrl) {
+                    // Redirect to payment processor (Stripe, PayPal, etc.)
+                    window.location.href = data.paymentUrl;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error processing your donation. Please try again.');
+            });
+            */
+        });
+    }
+    
+    // ========================================
     // Scroll Animations
     // ========================================
     

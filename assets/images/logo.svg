@@ -1,0 +1,19 @@
+<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="60" cy="60" r="55" fill="#2C5F8D"/>
+  <circle cx="60" cy="60" r="50" fill="#1a3d5c"/>
+  
+  <!-- Praying Hands Symbol -->
+  <g transform="translate(60, 60)">
+    <!-- Left hand -->
+    <path d="M -15,-10 Q -20,-25 -15,-35 Q -12,-40 -8,-38 L -8,-15 Q -8,-8 -12,-5 Z" fill="#D4AF37"/>
+    <!-- Right hand -->
+    <path d="M 15,-10 Q 20,-25 15,-35 Q 12,-40 8,-38 L 8,-15 Q 8,-8 12,-5 Z" fill="#D4AF37"/>
+    <!-- Glow effect -->
+    <circle cx="0" cy="-25" r="8" fill="#FFF" opacity="0.6"/>
+    <circle cx="0" cy="-25" r="12" fill="#FFF" opacity="0.3"/>
+  </g>
+  
+  <!-- Letters PPN -->
+  <text x="60" y="95" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">PPN</text>
+</svg>

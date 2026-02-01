@@ -98,6 +98,14 @@ body {
     font-weight: 700;
 }
 
+.logo {
+    height: 40px;
+    width: auto;
+    margin-right: 0.75rem;
+    vertical-align: middle;
+    display: inline-block;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -261,6 +269,34 @@ body {
 .btn-large {
     padding: 1.125rem 2.5rem;
     font-size: 1.125rem;
+}
+
+.btn-donate {
+    background-color: #28a745;
+    color: var(--text-white);
+    border-color: #28a745;
+}
+
+.btn-donate:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-donate-nav {
+    background-color: #28a745;
+    color: var(--text-white);
+    border-color: #28a745;
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.btn-donate-nav:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
 }
 
 /* ========================================
@@ -617,6 +653,140 @@ section {
 }
 
 /* ========================================
+   Donation Section
+   ======================================== */
+
+.donation-section {
+    background: linear-gradient(135deg, #28a745 0%, #20803a 100%);
+    color: var(--text-white);
+}
+
+.donation-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.donation-text h2,
+.donation-text h3 {
+    color: var(--text-white);
+}
+
+.donation-text p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.95;
+}
+
+.donation-impact {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin: var(--spacing-md) 0;
+}
+
+.donation-impact h3 {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.25rem;
+}
+
+.donation-impact ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.donation-impact li {
+    padding: 0.5rem 0;
+    font-size: 1.05rem;
+}
+
+.charity-reminder {
+    font-style: italic;
+    margin-top: var(--spacing-md);
+}
+
+.donation-card {
+    background-color: var(--bg-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    color: var(--text-dark);
+}
+
+.donation-card h3 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    font-size: 1.75rem;
+}
+
+.donation-amounts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.amount-btn {
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-white);
+    border-radius: var(--radius-md);
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--text-dark);
+}
+
+.amount-btn:hover {
+    border-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.05);
+}
+
+.amount-btn.active {
+    background-color: #28a745;
+    color: var(--text-white);
+    border-color: #28a745;
+}
+
+.donation-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.donation-form .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.donation-form .form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: var(--spacing-xs);
+}
+
+.donation-form button {
+    width: 100%;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.donation-form button:hover {
+    background-color: #218838;
+}
+
+.donation-note {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-top: var(--spacing-sm);
+    font-style: italic;
+}
+
+/* ========================================
    Contact Section
    ======================================== */
 
@@ -938,6 +1108,20 @@ section {
     
     .newsletter-form {
         flex-direction: column;
+    }
+    
+    /* Logo */
+    .logo {
+        height: 32px;
+    }
+    
+    /* Donation */
+    .donation-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .donation-amounts {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
