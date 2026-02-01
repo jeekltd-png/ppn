@@ -39,6 +39,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Handle dropdown menu for mobile
+    const navDropdown = document.querySelector('.nav-dropdown');
+    if (navDropdown) {
+        const dropdownLink = navDropdown.querySelector('.nav-link');
+        const dropdownMenu = navDropdown.querySelector('.dropdown-menu');
+        
+        dropdownLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+        });
+    }
+    
     // Smooth Scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
