@@ -361,33 +361,76 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     const bannerContent = document.querySelector('.banner-content');
-    if (bannerContent) {
+    const dots = document.querySelectorAll('.dot');
+    
+    if (bannerContent && dots.length > 0) {
         let currentSlide = 0;
         const totalSlides = 3;
         const slideInterval = 5000; // 5 seconds
+        let autoRotate;
+        
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            const translateX = -(currentSlide * (100 / totalSlides));
+            bannerContent.style.transform = `translateX(${translateX}%)`;
+            updateDots();
+        }
         
         function rotateBanner() {
             currentSlide = (currentSlide + 1) % totalSlides;
-            const translateX = -(currentSlide * (100 / totalSlides));
-            bannerContent.style.transform = `translateX(${translateX}%)`;
+            goToSlide(currentSlide);
         }
         
         // Auto-rotate every 5 seconds
-        setInterval(rotateBanner, slideInterval);
+        function startAutoRotate() {
+            autoRotate = setInterval(rotateBanner, slideInterval);
+        }
         
-        // Optional: Add touch/swipe support for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
+        function stopAutoRotate() {
+            clearInterval(autoRotate);
+        }
         
+        // Click on dots to navigate
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopAutoRotate();
+                goToSlide(index);
+                startAutoRotate(); // Restart auto-rotation after manual click
+            });
+        });
+        
+        // Start auto-rotation
+        startAutoRotate();
+        
+        // Pause on hover
         const bannerScroll = document.querySelector('.banner-scroll');
         if (bannerScroll) {
+            bannerScroll.addEventListener('mouseenter', stopAutoRotate);
+            bannerScroll.addEventListener('mouseleave', startAutoRotate);
+            
+            // Touch/swipe support for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
             bannerScroll.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
+                stopAutoRotate();
             });
             
             bannerScroll.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX;
                 handleSwipe();
+                startAutoRotate(); // Restart after swipe
             });
             
             function handleSwipe() {
@@ -397,9 +440,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (touchEndX > touchStartX + 50) {
                     // Swipe right
                     currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                } else {
+                    return; // No swipe detected
                 }
-                const translateX = -(currentSlide * (100 / totalSlides));
-                bannerContent.style.transform = `translateX(${translateX}%)`;
+                goToSlide(currentSlide);
             }
         }
     }
