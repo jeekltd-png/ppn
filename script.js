@@ -357,6 +357,54 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
+    // Event Banner Auto-Rotation
+    // ========================================
+    
+    const bannerContent = document.querySelector('.banner-content');
+    if (bannerContent) {
+        let currentSlide = 0;
+        const totalSlides = 3;
+        const slideInterval = 5000; // 5 seconds
+        
+        function rotateBanner() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            const translateX = -(currentSlide * (100 / totalSlides));
+            bannerContent.style.transform = `translateX(${translateX}%)`;
+        }
+        
+        // Auto-rotate every 5 seconds
+        setInterval(rotateBanner, slideInterval);
+        
+        // Optional: Add touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const bannerScroll = document.querySelector('.banner-scroll');
+        if (bannerScroll) {
+            bannerScroll.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            bannerScroll.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                if (touchEndX < touchStartX - 50) {
+                    // Swipe left
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                } else if (touchEndX > touchStartX + 50) {
+                    // Swipe right
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                }
+                const translateX = -(currentSlide * (100 / totalSlides));
+                bannerContent.style.transform = `translateX(${translateX}%)`;
+            }
+        }
+    }
+    
+    // ========================================
     // Active Navigation Link Highlighting
     // ========================================
     
