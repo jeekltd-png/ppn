@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (bannerContent && dots.length > 0) {
         let currentSlide = 0;
-        const totalSlides = 3;
+        const totalSlides = 4; // Updated to 4 slides (Hero + 3 events)
         const slideInterval = 5000; // 5 seconds
         let autoRotate;
         

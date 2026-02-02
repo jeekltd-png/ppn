@@ -407,14 +407,14 @@ body {
 
 .banner-content {
     display: flex;
-    width: 300%;
+    width: 400%;
     height: 100%;
     transition: transform 0.8s ease-in-out;
 }
 
 .banner-item {
     position: relative;
-    width: 33.333%;
+    width: 25%;
     height: 100%;
     flex-shrink: 0;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
@@ -422,6 +422,58 @@ body {
     display: block;
     text-decoration: none;
     cursor: pointer;
+}
+
+.banner-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%232C5F8D" width="1200" height="800"/><g fill-opacity="0.1"><circle fill="%23fff" cx="200" cy="200" r="300"/><circle fill="%23fff" cx="1000" cy="600" r="400"/></g></svg>');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+}
+
+.banner-hero .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 0 var(--spacing-md);
+    text-align: center;
+}
+
+.banner-hero .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+}
+
+.banner-hero .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    color: var(--text-white);
+}
+
+.banner-hero .hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: var(--spacing-lg);
+    opacity: 0.95;
+    color: var(--text-white);
+}
+
+.banner-hero .hero-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .banner-item-clickable {
