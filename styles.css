@@ -496,6 +496,10 @@ body {
     opacity: 0.7;
 }
 
+.banner-no-overlay img {
+    opacity: 1;
+}
+
 .banner-overlay {
     position: absolute;
     bottom: 0;
