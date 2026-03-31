@@ -763,5 +763,51 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Carousel image fail-safe: hide missing banners and update dots
+        (function(){
+            const bannerItems = Array.from(document.querySelectorAll('.event-banner .banner-content a.banner-item-clickable'));
+            const dots = Array.from(document.querySelectorAll('.event-banner .banner-dots .dot'));
+            let visibleCount = 0;
+
+            bannerItems.forEach((item, index) => {
+                const img = item.querySelector('img');
+                if (!img) { return; }
+                const hideItem = () => {
+                    item.style.display = 'none';
+                    if (dots[index]) dots[index].style.display = 'none';
+                };
+                img.addEventListener('error', () => {
+                    console.warn('Carousel image failed to load:', img.src);
+                    hideItem();
+                });
+                img.addEventListener('load', () => {
+                    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                        visibleCount += 1;
+                    } else {
+                        hideItem();
+                    }
+                });
+                if (img.complete) {
+                    if (img.naturalWidth > 0 && img.naturalHeight > 0) {
+                        visibleCount += 1;
+                    } else {
+                        hideItem();
+                    }
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                if (visibleCount === 0 && bannerItems.length > 0) {
+                    const bannerContainer = document.querySelector('.event-banner .banner-content');
+                    if (bannerContainer) {
+                        bannerContainer.innerHTML = '<div style="color:#333; text-align:center; padding:40px;">No carousel banners are available right now. Please refresh or contact the site admin.</div>';
+                        const dotContainer = document.querySelector('.event-banner .banner-dots');
+                        if(dotContainer) dotContainer.style.display = 'none';
+                    }
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
