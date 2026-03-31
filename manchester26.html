@@ -11,54 +11,48 @@
         .map-container { width: 100%; height: 400px; margin: 30px 0; }
         .info-section { margin: 30px 0; }
         .info-section ul { list-style: disc; margin-left: 20px; }
-        /* GenZ Countdown Timer Styles */
-        .genz-timer {
-            display: flex;
+        /* Contemporary Timer Styles (no flashing) */
+        .conventional-timer {
+            font-size: 2rem;
+            font-family: 'Inter', 'Roboto', Arial, sans-serif;
+            color: #1f2a44;
+            font-weight: 700;
+            background: linear-gradient(135deg, #e7eef8 0%, #d5e2f0 100%);
+            border: 1px solid #c2d5ea;
+            border-radius: 12px;
+            display: inline-flex;
+            gap: 0.5rem;
+            padding: 0.8em 1.6em;
+            margin: 1.5em 0 1em 0;
+            box-shadow: 0 4px 16px rgba(31,42,68,0.12);
+            letter-spacing: 0.08em;
+            min-width: 460px;
             justify-content: center;
-            gap: 1.5rem;
-            margin: 2rem 0 1.5rem 0;
-            font-family: 'Inter', 'Montserrat', 'Poppins', Arial, sans-serif;
-            font-weight: 800;
-            font-size: 2.5rem;
-            color: #fff;
-            background: linear-gradient(90deg, #2C5F8D 0%, #D4AF37 100%);
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(44,95,141,0.15);
-            padding: 1.2rem 2.5rem;
-            letter-spacing: 0.1em;
-            animation: popIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
         }
-        .genz-timer .time-section {
-            display: flex;
-            flex-direction: column;
+        .conventional-timer span {
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
+            width: 5.2rem;
+            padding: 0.1rem 0.2rem;
+            background: #ffffff;
+            border-radius: 8px;
+            color: #162239;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            font-size: 2rem;
+            text-align: center;
         }
-        .genz-timer .time-value {
-            font-size: 2.7rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #D4AF37 0%, #2C5F8D 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .genz-timer .time-label {
+        .conventional-information {
+            margin-bottom: 0.25rem;
             font-size: 1rem;
+            color: #4a5f7d;
             font-weight: 600;
-            color: #fff;
-            opacity: 0.85;
-            margin-top: 0.2rem;
         }
-        @keyframes popIn {
-            0% { transform: scale(0.7); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        @media (max-width: 600px) {
-            .genz-timer {
-                flex-direction: column;
-                font-size: 1.3rem;
-                padding: 1rem 0.5rem;
-            }
-            .genz-timer .time-value { font-size: 1.5rem; }
+        .countdown-text {
+            margin-bottom: 0.3rem;
+            font-size: 1.5rem;
+            color: #1b2c4a;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -67,7 +61,7 @@
         <h1>Manchester '26 Conference</h1>
         <div id="countdown"></div>
         <div id="banner" class="hidden">
-            <img src="assets/images/banner-restored-manchester-Register.png" alt="Restored Conference Manchester Banner with QR Code" style="max-width: 100%; height: auto;">
+            <img src="assets/images/banner-restored-manchester-Register.png" alt="Restored Conference Manchester Banner" style="max-width: 100%; height: auto;">
         </div>
     </div>
     <div class="map-container center">
@@ -89,23 +83,54 @@
         </ul>
     </div>
     <script>
-        // GenZ Countdown Timer
+        // Conventional Countdown Timer (no flashing, stable DOM updates)
         const eventDate = new Date('2026-08-13T09:00:00');
         const countdownEl = document.getElementById('countdown');
         const bannerEl = document.getElementById('banner');
 
-        function pad(n) { return n < 10 ? '0' + n : n; }
+        const titleEl = document.createElement('div');
+        titleEl.className = 'countdown-text';
+        titleEl.textContent = 'Countdown to Restored Manchester 2026';
 
-        function renderTimer(days, hours, minutes, seconds) {
-            return `
-                <div class="genz-timer">
-                    <div class="time-section"><span class="time-value">${pad(days)}</span><span class="time-label">Days</span></div>
-                    <div class="time-section"><span class="time-value">${pad(hours)}</span><span class="time-label">Hours</span></div>
-                    <div class="time-section"><span class="time-value">${pad(minutes)}</span><span class="time-label">Minutes</span></div>
-                    <div class="time-section"><span class="time-value">${pad(seconds)}</span><span class="time-label">Seconds</span></div>
-                </div>
-            `;
-        }
+        const timerBox = document.createElement('div');
+        timerBox.className = 'conventional-timer';
+
+        const sections = ['days','hours','minutes','seconds'].map(unit => {
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'inline-flex';
+            wrapper.style.alignItems = 'center';
+            wrapper.style.gap = '0.25rem';
+
+            const value = document.createElement('span');
+            value.className = `countdown-${unit}`;
+            value.style.minWidth = '2.2rem';
+            value.style.display = 'inline-block';
+            value.style.textAlign = 'center';
+            value.textContent = '--';
+
+            const label = document.createElement('span');
+            label.textContent = unit.slice(0, 1);
+            label.style.fontSize = '1.1rem';
+            label.style.color = '#50607f';
+
+            wrapper.appendChild(value);
+            wrapper.appendChild(label);
+            timerBox.appendChild(wrapper);
+            if (unit !== 'seconds') {
+                const separator = document.createElement('span');
+                separator.textContent = ':';
+                separator.style.color = '#3f4b66';
+                separator.style.margin = '0 0.45rem';
+                timerBox.appendChild(separator);
+            }
+
+            return { unit, value };
+        });
+
+        countdownEl.appendChild(titleEl);
+        countdownEl.appendChild(timerBox);
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
 
         function updateCountdown() {
             const now = new Date();
@@ -115,13 +140,18 @@
                 const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
                 const minutes = Math.floor((diff / (1000 * 60)) % 60);
                 const seconds = Math.floor((diff / 1000) % 60);
-                countdownEl.innerHTML = '<h2 style="font-size:1.5em;margin-bottom:0.5em;color:#2C5F8D;font-weight:900;letter-spacing:0.05em;">Countdown to Event</h2>' + renderTimer(days, hours, minutes, seconds);
+
+                sections.find(s => s.unit === 'days').value.textContent = pad(days);
+                sections.find(s => s.unit === 'hours').value.textContent = pad(hours);
+                sections.find(s => s.unit === 'minutes').value.textContent = pad(minutes);
+                sections.find(s => s.unit === 'seconds').value.textContent = pad(seconds);
             } else {
                 countdownEl.style.display = 'none';
                 bannerEl.classList.remove('hidden');
                 clearInterval(timer);
             }
         }
+
         updateCountdown();
         const timer = setInterval(updateCountdown, 1000);
     </script>
