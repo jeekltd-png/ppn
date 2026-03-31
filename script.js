@@ -361,12 +361,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     const bannerContent = document.querySelector('.banner-content');
-    const slides = bannerContent ? Array.from(bannerContent.querySelectorAll('.banner-item-clickable')) : [];
+    const allSlides = bannerContent ? Array.from(bannerContent.querySelectorAll('.banner-item')) : [];
+    const clickableSlides = bannerContent ? Array.from(bannerContent.querySelectorAll('.banner-item-clickable')) : [];
     const dots = document.querySelectorAll('.dot');
-    
-    if (bannerContent && slides.length > 0 && dots.length > 0) {
+
+    // Assumes first slide is hero and not controlled by dots; dots map to the subsequent slides.
+    const heroOffset = allSlides.length > 0 && allSlides[0].classList.contains('banner-hero') ? 1 : 0;
+
+    if (bannerContent && clickableSlides.length > 0 && dots.length > 0) {
         let currentSlide = 0;
-        const totalSlides = slides.length; // Slide count for clickable banners only
+        const totalSlides = clickableSlides.length; // Slide count for dots
         const slideInterval = 5000; // 5 seconds
         let autoRotate;
 
@@ -382,7 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function goToSlide(slideIndex) {
             currentSlide = slideIndex;
-            const translateX = -((currentSlide + 1) * 100); // Skip hero landing slide
+            const targetIndex = heroOffset + currentSlide;
+            const translateX = -(targetIndex * 100);
             bannerContent.style.transform = `translateX(${translateX}%)`;
             updateDots();
         }
@@ -410,10 +415,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Set initial visible slide and start auto-rotation
-        goToSlide(0);
+        // Keep hero slide visible initially, set first dot active via updateDots.
+        updateDots();
         startAutoRotate();
-        
+
         // Pause on hover
         const bannerScroll = document.querySelector('.banner-scroll');
         if (bannerScroll) {
