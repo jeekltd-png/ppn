@@ -361,13 +361,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     const bannerContent = document.querySelector('.banner-content');
-        const dots = document.querySelectorAll('.dot');
-        
-        if (bannerContent && dots.length > 0) {
-            let currentSlide = 0;
-            const totalSlides = dots.length; // Dynamic slide count
-            const slideInterval = 5000; // 5 seconds
-            let autoRotate;
+    const slides = bannerContent ? Array.from(bannerContent.querySelectorAll('.banner-item-clickable')) : [];
+    const dots = document.querySelectorAll('.dot');
+    
+    if (bannerContent && slides.length > 0 && dots.length > 0) {
+        let currentSlide = 0;
+        const totalSlides = slides.length; // Slide count for clickable banners only
+        const slideInterval = 5000; // 5 seconds
+        let autoRotate;
+
         function updateDots() {
             dots.forEach((dot, index) => {
                 if (index === currentSlide) {
@@ -377,24 +379,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-        
+
         function goToSlide(slideIndex) {
             currentSlide = slideIndex;
-            const translateX = -(currentSlide * 100);
+            const translateX = -((currentSlide + 1) * 100); // Skip hero landing slide
             bannerContent.style.transform = `translateX(${translateX}%)`;
             updateDots();
         }
-        
+
         function rotateBanner() {
             currentSlide = (currentSlide + 1) % totalSlides;
             goToSlide(currentSlide);
         }
-        
+
         // Auto-rotate every 5 seconds
         function startAutoRotate() {
             autoRotate = setInterval(rotateBanner, slideInterval);
         }
-        
+
         function stopAutoRotate() {
             clearInterval(autoRotate);
         }
@@ -408,7 +410,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Start auto-rotation
+        // Set initial visible slide and start auto-rotation
+        goToSlide(0);
         startAutoRotate();
         
         // Pause on hover
