@@ -361,14 +361,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     
     const bannerContent = document.querySelector('.banner-content');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (bannerContent && dots.length > 0) {
-        let currentSlide = 0;
-        const totalSlides = 4; // Updated to 4 slides (Hero + 3 events)
-        const slideInterval = 5000; // 5 seconds
-        let autoRotate;
+        const dots = document.querySelectorAll('.dot');
         
+        if (bannerContent && dots.length > 0) {
+            let currentSlide = 0;
+            const totalSlides = dots.length; // Dynamic slide count
+            const slideInterval = 5000; // 5 seconds
+            let autoRotate;
         function updateDots() {
             dots.forEach((dot, index) => {
                 if (index === currentSlide) {
@@ -381,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         function goToSlide(slideIndex) {
             currentSlide = slideIndex;
-            const translateX = -(currentSlide * (100 / totalSlides));
+            const translateX = -(currentSlide * 100);
             bannerContent.style.transform = `translateX(${translateX}%)`;
             updateDots();
         }
@@ -589,6 +588,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('Prayer Power Network website initialized successfully! 🙏');
+
+    // ========================================
+    // Countdown Timer for Manchester'26
+    // ========================================
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('2026-08-13T00:00:00'); // Countdown to 13th August 2026
+
+    function updateCountdown() {
+        if (!countdownElement) return;
+
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        if (distance <= 0) {
+            countdownElement.innerHTML = "Manchester'26 Event is Live!";
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `Manchester'26 starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    let countdownInterval;
+    if (countdownElement) {
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+    }
+
 });
 
 // ========================================
@@ -653,3 +685,31 @@ if ('serviceWorker' in navigator) {
         */
     });
 }
+    // ========================================
+    // Countdown Timer for Manchester\'26
+    // ========================================
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('2026-11-01T00:00:00'); // Manchester '26 event date
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        if (distance <= 0) {
+            countdownElement.innerHTML = 'Manchester\'26 Event is Live!';
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = Manchester'26 starts in d h m s;
+    }
+
+    if (countdownElement) {
+        updateCountdown();
+        var countdownInterval = setInterval(updateCountdown, 1000);
+    }
