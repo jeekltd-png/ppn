@@ -1,0 +1,2 @@
+# Place this image in the assets/images/ directory as banner-restored-manchester-Register.png
+# Update the manchester26.html to use this image for the event banner

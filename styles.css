@@ -147,6 +147,16 @@ body {
     width: 100%;
 }
 
+.nav-link.nav-highlight {
+    color: #ff0000;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+}
+
+.nav-link.nav-highlight:hover {
+    color: #ff4a4a;
+}
+
 .live-badge {
     background-color: #ff0066;
     color: white;
@@ -349,6 +359,21 @@ body {
     font-weight: 600;
     text-decoration: none;
     transition: all var(--transition-base);
+}
+
+.countdown-banner {
+    background: #fff3f3;
+    color: #b80000;
+    padding: 10px 0;
+    text-align: center;
+    border-bottom: 2px solid #ff0000;
+}
+
+.countdown {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
 }
 
 .btn-donate-nav:hover {

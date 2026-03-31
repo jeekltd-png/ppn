@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manchester '26 Conference</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hidden { display: none; }
+        .center { text-align: center; margin-top: 30px; }
+        .map-container { width: 100%; height: 400px; margin: 30px 0; }
+        .info-section { margin: 30px 0; }
+        .info-section ul { list-style: disc; margin-left: 20px; }
+        /* GenZ Countdown Timer Styles */
+        .genz-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0 1.5rem 0;
+            font-family: 'Inter', 'Montserrat', 'Poppins', Arial, sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            color: #fff;
+            background: linear-gradient(90deg, #2C5F8D 0%, #D4AF37 100%);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(44,95,141,0.15);
+            padding: 1.2rem 2.5rem;
+            letter-spacing: 0.1em;
+            animation: popIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .genz-timer .time-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .genz-timer .time-value {
+            font-size: 2.7rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #D4AF37 0%, #2C5F8D 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .genz-timer .time-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            opacity: 0.85;
+            margin-top: 0.2rem;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .genz-timer {
+                flex-direction: column;
+                font-size: 1.3rem;
+                padding: 1rem 0.5rem;
+            }
+            .genz-timer .time-value { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <h1>Manchester '26 Conference</h1>
+        <div id="countdown"></div>
+        <div id="banner" class="hidden">
+            <img src="assets/images/banner-restored-manchester-Register.png" alt="Restored Conference Manchester Banner with QR Code" style="max-width: 100%; height: auto;">
+        </div>
+    </div>
+    <div class="map-container center">
+        <h2>Venue Location</h2>
+        <iframe src="https://www.google.com/maps?q=Faithlife+Centre,+5+Mary+St,+Cheetham+Hill,+Manchester+M3+1NH&output=embed" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="info-section center">
+        <h2>Nearby Bus Stops</h2>
+        <ul>
+            <li>Cheetham Hill Road / Mary Street (Stop F)</li>
+            <li>Cheetham Hill Road / Crescent Road (Stop E)</li>
+            <li>Cheetham Hill Road / Crescent Road (Stop D)</li>
+        </ul>
+        <h2>Nearby Hotels</h2>
+        <ul>
+            <li>Travelodge Manchester Central Arena</li>
+            <li>Park Inn by Radisson Manchester City Centre</li>
+            <li>Premier Inn Manchester City Centre (Arena/Printworks)</li>
+        </ul>
+    </div>
+    <script>
+        // GenZ Countdown Timer
+        const eventDate = new Date('2026-08-13T09:00:00');
+        const countdownEl = document.getElementById('countdown');
+        const bannerEl = document.getElementById('banner');
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
+
+        function renderTimer(days, hours, minutes, seconds) {
+            return `
+                <div class="genz-timer">
+                    <div class="time-section"><span class="time-value">${pad(days)}</span><span class="time-label">Days</span></div>
+                    <div class="time-section"><span class="time-value">${pad(hours)}</span><span class="time-label">Hours</span></div>
+                    <div class="time-section"><span class="time-value">${pad(minutes)}</span><span class="time-label">Minutes</span></div>
+                    <div class="time-section"><span class="time-value">${pad(seconds)}</span><span class="time-label">Seconds</span></div>
+                </div>
+            `;
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = eventDate - now;
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+                countdownEl.innerHTML = '<h2 style="font-size:1.5em;margin-bottom:0.5em;color:#2C5F8D;font-weight:900;letter-spacing:0.05em;">Countdown to Event</h2>' + renderTimer(days, hours, minutes, seconds);
+            } else {
+                countdownEl.style.display = 'none';
+                bannerEl.classList.remove('hidden');
+                clearInterval(timer);
+            }
+        }
+        updateCountdown();
+        const timer = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
