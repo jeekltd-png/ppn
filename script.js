@@ -393,26 +393,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // Event Banner Auto-Rotation
+    // Event Banner Auto-Rotation (Simplified)
     // ========================================
     
     const bannerContent = document.querySelector('.banner-content');
     const allSlides = bannerContent ? Array.from(bannerContent.querySelectorAll('.banner-item')) : [];
     const dots = document.querySelectorAll('.dot');
-
-    // total slides including hero slide.
     const totalSlides = allSlides.length;
-    const heroIsFirst = allSlides.length > 0 && allSlides[0].classList.contains('banner-hero');
 
-    if (bannerContent && totalSlides > 0 && dots.length > 0) {
-        let currentSlide = 0; // 0 is hero, 1..n are banners
+    if (bannerContent && totalSlides > 0) {
+        let currentSlide = 0;
         const slideInterval = 5000; // 5 seconds
         let autoRotate;
 
         function updateDots() {
             dots.forEach((dot, index) => {
-                const mapped = heroIsFirst ? index + 1 : index;
-                if (currentSlide === mapped) {
+                if (index === currentSlide) {
                     dot.classList.add('active');
                 } else {
                     dot.classList.remove('active');
@@ -421,6 +417,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function goToSlide(slideIndex) {
+            // Wrap around: ensure slideIndex is within bounds
             if (slideIndex < 0) {
                 slideIndex = totalSlides - 1;
             } else if (slideIndex >= totalSlides) {
@@ -446,17 +443,18 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(autoRotate);
         }
         
-        // Click on dots to navigate (map dot index to non-hero slides)
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                stopAutoRotate();
-                const slideIndex = heroIsFirst ? index + 1 : index;
-                goToSlide(slideIndex);
-                startAutoRotate(); // Restart auto-rotation after manual click
+        // Click on dots to navigate
+        if (dots.length === totalSlides) {
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    stopAutoRotate();
+                    goToSlide(index);
+                    startAutoRotate(); // Restart auto-rotation after manual click
+                });
             });
-        });
+        }
         
-        // Keep hero slide visible initially, set first dot active via updateDots.
+        // Initialize: set first dot active and start rotation
         updateDots();
         startAutoRotate();
 
@@ -483,15 +481,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             function handleSwipe() {
                 if (touchEndX < touchStartX - 50) {
-                    // Swipe left
-                    currentSlide = (currentSlide + 1) % totalSlides;
+                    // Swipe left - go to next slide
+                    goToSlide(currentSlide + 1);
                 } else if (touchEndX > touchStartX + 50) {
-                    // Swipe right
-                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                } else {
-                    return; // No swipe detected
+                    // Swipe right - go to previous slide
+                    goToSlide(currentSlide - 1);
                 }
-                goToSlide(currentSlide);
             }
         }
     }
