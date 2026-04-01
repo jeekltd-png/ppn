@@ -85,27 +85,33 @@
 
         const timerBox = document.createElement('div');
         timerBox.className = 'conventional-timer';
+        timerBox.style.display = 'flex';
+        timerBox.style.justifyContent = 'center';
+        timerBox.style.alignItems = 'center';
+        timerBox.style.gap = '0.5rem';
+        timerBox.style.padding = '1rem';
+        timerBox.style.borderRadius = '16px';
+        timerBox.style.background = 'rgba(220, 234, 254, 0.8)';
 
         const sections = ['days','hours','minutes','seconds'].map(unit => {
-            const wrapper = document.createElement('div');
+            const wrapper = document.createElement('span');
             wrapper.style.display = 'inline-flex';
             wrapper.style.alignItems = 'center';
             wrapper.style.justifyContent = 'center';
-            wrapper.style.gap = '0.25rem';
 
             const value = document.createElement('span');
             value.className = `countdown-${unit}`;
-            value.style.minWidth = '3.1rem';
+            value.style.minWidth = '3.5rem';
             value.style.display = 'inline-flex';
             value.style.alignItems = 'center';
             value.style.justifyContent = 'center';
             value.style.textAlign = 'center';
-            value.style.fontSize = '1.8rem';
-            value.style.fontWeight = 'bold';
+            value.style.fontSize = '2.2rem';
+            value.style.fontWeight = '900';
             value.style.background = '#ffffff';
-            value.style.borderRadius = '8px';
-            value.style.padding = '0.06rem 0.12rem';
-            value.style.color = '#162239';
+            value.style.borderRadius = '12px';
+            value.style.padding = '0.5rem 0.8rem';
+            value.style.color = '#1a1a1a';
             value.textContent = '--';
 
             wrapper.appendChild(value);
@@ -113,9 +119,10 @@
             if (unit !== 'seconds') {
                 const separator = document.createElement('span');
                 separator.textContent = ':';
-                separator.style.color = '#3f4b66';
-                separator.style.margin = '0 0.25rem';
-                separator.style.fontSize = '1.8rem';
+                separator.style.color = '#1a1a1a';
+                separator.style.margin = '0 0.5rem';
+                separator.style.fontSize = '2rem';
+                separator.style.fontWeight = '300';
                 timerBox.appendChild(separator);
             }
 
