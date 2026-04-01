@@ -757,7 +757,7 @@ if ('serviceWorker' in navigator) {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        countdownElement.innerHTML = Manchester'26 starts in d h m s;
+        countdownElement.innerHTML = `Manchester'26 starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
     if (countdownElement) {
