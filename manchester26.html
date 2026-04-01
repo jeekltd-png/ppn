@@ -119,10 +119,17 @@
             if (unit !== 'seconds') {
                 const separator = document.createElement('span');
                 separator.textContent = ':';
+                separator.style.display = 'inline-flex';
+                separator.style.alignItems = 'center';
+                separator.style.justifyContent = 'center';
+                separator.style.minWidth = '3.5rem';
+                separator.style.padding = '0.5rem 0.8rem';
+                separator.style.background = '#ffffff';
+                separator.style.borderRadius = '12px';
                 separator.style.color = '#1a1a1a';
-                separator.style.margin = '0 0.5rem';
-                separator.style.fontSize = '2rem';
+                separator.style.fontSize = '2.2rem';
                 separator.style.fontWeight = '300';
+                separator.style.letterSpacing = '0.3rem';
                 timerBox.appendChild(separator);
             }
 
