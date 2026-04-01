@@ -375,8 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function updateDots() {
             dots.forEach((dot, index) => {
-                // dot 0 -> slide 1, dot 1 -> slide 2, dot 2 -> slide 3
-                const mapped = index + (heroIsFirst ? 1 : 0);
+                const mapped = heroIsFirst ? index + 1 : index;
                 if (currentSlide === mapped) {
                     dot.classList.add('active');
                 } else {
@@ -386,6 +385,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function goToSlide(slideIndex) {
+            if (slideIndex < 0) {
+                slideIndex = totalSlides - 1;
+            } else if (slideIndex >= totalSlides) {
+                slideIndex = 0;
+            }
             currentSlide = slideIndex;
             const translateX = -(currentSlide * 100);
             bannerContent.style.transform = `translateX(${translateX}%)`;
@@ -393,12 +397,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function rotateBanner() {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            goToSlide(currentSlide);
+            goToSlide(currentSlide + 1);
         }
 
         // Auto-rotate every 5 seconds
         function startAutoRotate() {
+            stopAutoRotate();
             autoRotate = setInterval(rotateBanner, slideInterval);
         }
 
