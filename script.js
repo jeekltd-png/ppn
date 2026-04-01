@@ -3,6 +3,36 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // ========================================
+    // Ensure Hero Buttons Are Clickable
+    // ========================================
+    
+    const heroButtons = document.querySelectorAll('.hero-buttons a');
+    heroButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Ensure button click works - don't let carousel interfere
+            const href = this.getAttribute('href');
+            if (href && href !== '#') {
+                // For external links or data attributes, let default behavior work
+                if (this.target === '_self' || this.target === '_blank' || href.includes('http')) {
+                    // Default behavior for external and new window links
+                    return;
+                } else if (href.startsWith('#')) {
+                    // For anchor links, prevent default and scroll
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+        });
+    });
+
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');
