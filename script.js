@@ -72,23 +72,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========================================
-    // Navbar Scroll Effect
+    // Navbar Scroll Effect (with Throttling)
     // ========================================
     
     const navbar = document.getElementById('navbar');
     let lastScroll = 0;
+    let scrollTimeout;
     
     window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
+        if (scrollTimeout) return;
         
-        // Add shadow when scrolled
-        if (currentScroll > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        lastScroll = currentScroll;
+        scrollTimeout = setTimeout(() => {
+            const currentScroll = window.pageYOffset;
+            
+            // Add shadow when scrolled
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+            scrollTimeout = null;
+        }, 50); // Throttle to 50ms
     });
     
     // ========================================
