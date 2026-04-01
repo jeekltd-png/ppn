@@ -54,28 +54,55 @@
     <section class="event-banner" id="home">
         <div class="banner-scroll">
             <div class="banner-content">
-                <!-- Slide 1: Hero/Landing -->
-                <div class="banner-item banner-hero">
+                <!-- Slide 0: Manchester Hero with Countdown -->
+                <div class="banner-item banner-hero banner-manchester-hero" style="position: relative;">
                     <div class="hero-overlay"></div>
-                    <div class="hero-content">
-                        <h1 class="hero-title">Experience Supernatural Intervention through Prayer</h1>
-                        <p class="hero-subtitle">Prayer Power Network – Join Our Community for Destiny Fulfillment</p>
+                    <div class="hero-content" style="z-index: 2;">
+                        <h1 class="hero-title" style="color: #d10000; font-size: 2.5rem;">Restored Conference Manchester '26</h1>
+                        <p class="hero-subtitle" style="margin-bottom: 1.5rem;">Healing and Deliverance Conference | 13-15 August 2026</p>
+                        
+                        <!-- Countdown Timer -->
+                        <div id="carousel-countdown" style="margin: 1.5rem 0; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                            <div class="countdown-text" style="margin-bottom: 1rem;">Countdown to Manchester 2026</div>
+                            <div class="conventional-timer" id="carousel-timer" style="min-width: 400px;">
+                                <div style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                    <span class="countdown-days" style="display: inline-flex; align-items: center; justify-content: center; width: 5.2rem; padding: 0.1rem 0.2rem; background: #ffffff; border-radius: 8px; color: #162239; font-size: 1.8rem;">00</span>
+                                    <span style="font-size: 1.1rem; color: #50607f;">d</span>
+                                </div>
+                                <span style="color: #3f4b66; margin: 0 0.45rem;">:</span>
+                                <div style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                    <span class="countdown-hours" style="display: inline-flex; align-items: center; justify-content: center; width: 5.2rem; padding: 0.1rem 0.2rem; background: #ffffff; border-radius: 8px; color: #162239; font-size: 1.8rem;">00</span>
+                                    <span style="font-size: 1.1rem; color: #50607f;">h</span>
+                                </div>
+                                <span style="color: #3f4b66; margin: 0 0.45rem;">:</span>
+                                <div style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                    <span class="countdown-minutes" style="display: inline-flex; align-items: center; justify-content: center; width: 5.2rem; padding: 0.1rem 0.2rem; background: #ffffff; border-radius: 8px; color: #162239; font-size: 1.8rem;">00</span>
+                                    <span style="font-size: 1.1rem; color: #50607f;">m</span>
+                                </div>
+                                <span style="color: #3f4b66; margin: 0 0.45rem;">:</span>
+                                <div style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                    <span class="countdown-seconds" style="display: inline-flex; align-items: center; justify-content: center; width: 5.2rem; padding: 0.1rem 0.2rem; background: #ffffff; border-radius: 8px; color: #162239; font-size: 1.8rem;">00</span>
+                                    <span style="font-size: 1.1rem; color: #50607f;">s</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img src="assets/images/banner-restored-manchester-Register.jpeg" alt="Restored Conference Manchester" style="max-width: 600px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); margin: 1.5rem 0;">
+                        
                         <div class="hero-buttons">
-                            <a href="#contact" class="btn btn-primary">Join Us</a>
-                            <a href="#about" class="btn btn-secondary">Learn More</a>
+                            <a href="manchester26.html" target="_self" class="btn btn-primary">Learn More & Register</a>
+                            <a href="#contact" class="btn btn-secondary">Contact Us</a>
                             <a href="https://www.paypal.com/donate?hosted_button_id=KTDK2ZECWL3M4" target="_self" class="btn btn-donate">Give Now</a>
                         </div>
                     </div>
                 </div>
+
                 <!-- Slide 1: Tequmah -->
                 <a href="#contact" class="banner-item banner-item-clickable banner-no-overlay banner-tequmah">
                     <img src="assets/images/banner-tequmah.jpeg" alt="Tequmah Prayer Banner">
                 </a>
-                <!-- Slide 2: Manchester -->
-                <a href="manchester26.html" target="_self" class="banner-item banner-item-clickable banner-no-overlay banner-manchester">
-                    <img src="assets/images/banner-restored-manchester-Register.jpeg" alt="Restored Conference Manchester">
-                </a>
-                <!-- Slide 3: Restored 2026 -->
+
+                <!-- Slide 2: Restored 2026 -->
                 <a href="#contact" class="banner-item banner-item-clickable banner-no-overlay banner-restored">
                     <img src="assets/images/banner-restored2026.jpeg" alt="Restored Conference 2026">
                 </a>
@@ -87,6 +114,38 @@
             <span class="dot" data-slide="2"></span>
         </div>
     </section>
+
+    <!-- Countdown Timer Script for Carousel -->
+    <script>
+        function updateCarouselCountdown() {
+            const eventDate = new Date('2026-08-13T09:00:00');
+            const now = new Date();
+            const diff = eventDate - now;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+
+                const pad = (n) => n < 10 ? '0' + n : n;
+
+                const daysEl = document.querySelector('.countdown-days');
+                const hoursEl = document.querySelector('.countdown-hours');
+                const minutesEl = document.querySelector('.countdown-minutes');
+                const secondsEl = document.querySelector('.countdown-seconds');
+
+                if (daysEl) daysEl.textContent = pad(days);
+                if (hoursEl) hoursEl.textContent = pad(hours);
+                if (minutesEl) minutesEl.textContent = pad(minutes);
+                if (secondsEl) secondsEl.textContent = pad(seconds);
+            }
+        }
+
+        // Update countdown immediately and then every second
+        updateCarouselCountdown();
+        setInterval(updateCarouselCountdown, 1000);
+    </script>
 
     <!-- Welcome Message -->
     <section class="welcome-section">
