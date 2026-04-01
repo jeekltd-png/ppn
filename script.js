@@ -401,6 +401,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const dots = document.querySelectorAll('.dot');
     const totalSlides = allSlides.length;
 
+    console.log('Carousel Debug:', { totalSlides, dotsLength: dots.length, bannerContentExists: !!bannerContent });
+
     if (bannerContent && totalSlides > 0) {
         let currentSlide = 0;
         const slideInterval = 5000; // 5 seconds
@@ -426,6 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentSlide = slideIndex;
             const translateX = -(currentSlide * 100);
             bannerContent.style.transform = `translateX(${translateX}%)`;
+            console.log('Carousel moved to slide:', currentSlide, 'translate:', translateX + '%');
             updateDots();
         }
 
@@ -437,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function startAutoRotate() {
             stopAutoRotate();
             autoRotate = setInterval(rotateBanner, slideInterval);
+            console.log('Auto-rotate started');
         }
 
         function stopAutoRotate() {
@@ -452,6 +456,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     startAutoRotate(); // Restart auto-rotation after manual click
                 });
             });
+            console.log('Dot click handlers attached');
+        } else {
+            console.warn('Dots length does not match totalSlides', { dotsLength: dots.length, totalSlides });
         }
         
         // Initialize: set first dot active and start rotation
