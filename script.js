@@ -640,38 +640,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Prayer Power Network website initialized successfully! 🙏');
 
-    // ========================================
-    // Countdown Timer for Manchester'26
-    // ========================================
-    const countdownElement = document.getElementById('countdown');
-    const targetDate = new Date('2026-08-13T00:00:00'); // Countdown to 13th August 2026
-
-    function updateCountdown() {
-        if (!countdownElement) return;
-
-        const now = new Date().getTime();
-        const distance = targetDate.getTime() - now;
-
-        if (distance <= 0) {
-            countdownElement.innerHTML = "Manchester'26 Event is Live!";
-            clearInterval(countdownInterval);
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `Manchester'26 starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    let countdownInterval;
-    if (countdownElement) {
-        updateCountdown();
-        countdownInterval = setInterval(updateCountdown, 1000);
-    }
-
 });
 
 // ========================================
