@@ -78,91 +78,101 @@
         const countdownEl = document.getElementById('countdown');
         const bannerEl = document.getElementById('banner');
 
-        // Don't create titleEl since heading is now in HTML
-        // const titleEl = document.createElement('div');
-        // titleEl.className = 'countdown-text';
-        // titleEl.textContent = 'Countdown to Restored Manchester 2026';
+        console.log('Manchester26 countdown init - countdownEl:', countdownEl);
 
-        const timerBox = document.createElement('div');
-        timerBox.className = 'conventional-timer';
-        timerBox.style.display = 'flex';
-        timerBox.style.justifyContent = 'center';
-        timerBox.style.alignItems = 'center';
-        timerBox.style.gap = '0.5rem';
-        timerBox.style.padding = '1rem';
-        timerBox.style.borderRadius = '16px';
-        timerBox.style.background = 'rgba(220, 234, 254, 0.8)';
+        if (!countdownEl) {
+            console.error('Countdown element not found!');
+        } else {
+            // Don't create titleEl since heading is now in HTML
+            // const titleEl = document.createElement('div');
+            // titleEl.className = 'countdown-text';
+            // titleEl.textContent = 'Countdown to Restored Manchester 2026';
 
-        const sections = ['days','hours','minutes','seconds'].map(unit => {
-            const wrapper = document.createElement('span');
-            wrapper.style.display = 'inline-flex';
-            wrapper.style.alignItems = 'center';
-            wrapper.style.justifyContent = 'center';
+            const timerBox = document.createElement('div');
+            timerBox.className = 'conventional-timer';
+            timerBox.style.display = 'flex';
+            timerBox.style.justifyContent = 'center';
+            timerBox.style.alignItems = 'center';
+            timerBox.style.gap = '0.5rem';
+            timerBox.style.padding = '1rem';
+            timerBox.style.borderRadius = '16px';
+            timerBox.style.background = 'rgba(220, 234, 254, 0.8)';
+            timerBox.style.width = 'fit-content';
+            timerBox.style.margin = '2rem auto';
 
-            const value = document.createElement('span');
-            value.className = `countdown-${unit}`;
-            value.style.minWidth = '3.5rem';
-            value.style.display = 'inline-flex';
-            value.style.alignItems = 'center';
-            value.style.justifyContent = 'center';
-            value.style.textAlign = 'center';
-            value.style.fontSize = '2.2rem';
-            value.style.fontWeight = '900';
-            value.style.background = '#ffffff';
-            value.style.borderRadius = '12px';
-            value.style.padding = '0.5rem 0.8rem';
-            value.style.color = '#1a1a1a';
-            value.textContent = '--';
+            const sections = ['days','hours','minutes','seconds'].map(unit => {
+                const wrapper = document.createElement('span');
+                wrapper.style.display = 'inline-flex';
+                wrapper.style.alignItems = 'center';
+                wrapper.style.justifyContent = 'center';
 
-            wrapper.appendChild(value);
-            timerBox.appendChild(wrapper);
-            if (unit !== 'seconds') {
-                const separator = document.createElement('span');
-                separator.textContent = ':';
-                separator.style.display = 'inline-flex';
-                separator.style.alignItems = 'center';
-                separator.style.justifyContent = 'center';
-                separator.style.minWidth = '3.5rem';
-                separator.style.padding = '0.5rem 0.8rem';
-                separator.style.background = '#ffffff';
-                separator.style.borderRadius = '12px';
-                separator.style.color = '#1a1a1a';
-                separator.style.fontSize = '2.2rem';
-                separator.style.fontWeight = '300';
-                separator.style.letterSpacing = '0.3rem';
-                timerBox.appendChild(separator);
+                const value = document.createElement('span');
+                value.className = `countdown-${unit}`;
+                value.style.minWidth = '3.5rem';
+                value.style.display = 'inline-flex';
+                value.style.alignItems = 'center';
+                value.style.justifyContent = 'center';
+                value.style.textAlign = 'center';
+                value.style.fontSize = '2.2rem';
+                value.style.fontWeight = '900';
+                value.style.background = '#ffffff';
+                value.style.borderRadius = '12px';
+                value.style.padding = '0.5rem 0.8rem';
+                value.style.color = '#1a1a1a';
+                value.textContent = '--';
+
+                wrapper.appendChild(value);
+                timerBox.appendChild(wrapper);
+                if (unit !== 'seconds') {
+                    const separator = document.createElement('span');
+                    separator.textContent = ':';
+                    separator.style.display = 'inline-flex';
+                    separator.style.alignItems = 'center';
+                    separator.style.justifyContent = 'center';
+                    separator.style.minWidth = '3.5rem';
+                    separator.style.padding = '0.5rem 0.8rem';
+                    separator.style.background = '#ffffff';
+                    separator.style.borderRadius = '12px';
+                    separator.style.color = '#1a1a1a';
+                    separator.style.fontSize = '2.2rem';
+                    separator.style.fontWeight = '300';
+                    separator.style.letterSpacing = '0.3rem';
+                    timerBox.appendChild(separator);
+                }
+
+                return { unit, value };
+            });
+
+            // titleEl is now in HTML, so don't append it
+            // countdownEl.appendChild(titleEl);
+            countdownEl.appendChild(timerBox);
+            console.log('Timer box created and appended successfully');
+
+            function pad(n) { return n < 10 ? '0' + n : n; }
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = eventDate - now;
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                    const seconds = Math.floor((diff / 1000) % 60);
+
+                    sections.find(s => s.unit === 'days').value.textContent = pad(days);
+                    sections.find(s => s.unit === 'hours').value.textContent = pad(hours);
+                    sections.find(s => s.unit === 'minutes').value.textContent = pad(minutes);
+                    sections.find(s => s.unit === 'seconds').value.textContent = pad(seconds);
+                } else {
+                    countdownEl.style.display = 'none';
+                    clearInterval(timer);
+                }
             }
 
-            return { unit, value };
-        });
-
-        // titleEl is now in HTML, so don't append it
-        // countdownEl.appendChild(titleEl);
-        countdownEl.appendChild(timerBox);
-
-        function pad(n) { return n < 10 ? '0' + n : n; }
-
-        function updateCountdown() {
-            const now = new Date();
-            const diff = eventDate - now;
-            if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
-
-                sections.find(s => s.unit === 'days').value.textContent = pad(days);
-                sections.find(s => s.unit === 'hours').value.textContent = pad(hours);
-                sections.find(s => s.unit === 'minutes').value.textContent = pad(minutes);
-                sections.find(s => s.unit === 'seconds').value.textContent = pad(seconds);
-            } else {
-                countdownEl.style.display = 'none';
-                clearInterval(timer);
-            }
+            updateCountdown();
+            const timer = setInterval(updateCountdown, 1000);
+            console.log('Countdown timer started');
         }
-
-        updateCountdown();
-        const timer = setInterval(updateCountdown, 1000);
     </script>
     
     <!-- Include main script for navigation functionality -->
