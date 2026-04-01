@@ -702,33 +702,7 @@ if ('serviceWorker' in navigator) {
                 console.log('Service Worker registration failed:', error);
             });
         */
-    });
+        });
 }
-    // ========================================
-    // Countdown Timer for Manchester\'26
-    // ========================================
-    const countdownElement = document.getElementById('countdown');
-    const targetDate = new Date('2026-11-01T00:00:00'); // Manchester '26 event date
 
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = targetDate.getTime() - now;
-
-        if (distance <= 0) {
-            countdownElement.innerHTML = 'Manchester\'26 Event is Live!';
-            clearInterval(countdownInterval);
-            return;
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        countdownElement.innerHTML = `Manchester'26 starts in ${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    if (countdownElement) {
-        updateCountdown();
-        var countdownInterval = setInterval(updateCountdown, 1000);
-    }
+    console.log('Prayer Power Network website initialized successfully! 🙏');
